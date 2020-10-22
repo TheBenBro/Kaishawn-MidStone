@@ -52,3 +52,9 @@ float VMath::distance(const Sphere &s, const Plane &p){
 Vec3 VMath::lerp(const Vec3 &v1, const Vec3 &v2, float t) {
 	return (v1 + t * (v2 - v1));
 }
+
+float VMath::Clamped(float value, float min, float max)
+{
+	return std::max(min, std::min(max, value));
+}
+

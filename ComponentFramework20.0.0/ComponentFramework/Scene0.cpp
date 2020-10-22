@@ -44,7 +44,12 @@ bool Scene0::OnCreate() {
 		Debug::FatalError("GameObject could not be created", __FILE__, __LINE__);
 		return false;
 	}
-	
+	if (ObjLoader::loadOBJ("meshes/Cube.obj") == false) {
+		return false;
+	}
+	meshPtr = new Mesh(GL_TRIANGLES, ObjLoader::vertices, ObjLoader::normals, ObjLoader::uvCoords);
+	shaderPtr = new Shader("phongVert.glsl", "phongFrag.glsl");
+	texturePtr = new Texture();
 	Sphere1 = new DemoObject(meshPtr, shaderPtr, nullptr);
 	if (Sphere1 == nullptr) {
 		Debug::FatalError("GameObject could not be created", __FILE__, __LINE__);

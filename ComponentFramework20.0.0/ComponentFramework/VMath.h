@@ -54,6 +54,8 @@ namespace MATH {
 		/// Get the distance between a sphere and a plane
 		static float distance(const Sphere &s, const Plane &p);
 
+		static float Clamped(float value, float min, float max);
+
 		/// This is a basic Linear Interpolation function.  It takes v1 and moves it 
 		/// to v2 in a linear fashion based on the value of t which goes from 
 		/// 0.0 - 1.0.  This is a simple example of a parametric equation. The parameter

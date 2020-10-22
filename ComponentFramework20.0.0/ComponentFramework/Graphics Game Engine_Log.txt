@@ -4,4 +4,3 @@
 [INFO]: Graphics card name GeForce GTX 1050/PCIe/SSE2
 [INFO]: GLSL Version 4.60 NVIDIA
 [INFO]: Created Scene0: 
-[INFO]: Deleting the GameSceneManager
