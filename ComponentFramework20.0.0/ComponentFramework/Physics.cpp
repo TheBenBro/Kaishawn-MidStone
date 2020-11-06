@@ -8,11 +8,12 @@ void Physics::SimpleNewtonMotion(PhysicsObject &object, const float deltaTime) {
 }
 
 bool Physics::PlaneSphereCollision(const PhysicsObject &object, const Plane &p) {
-	Vec3 center = object.pos + object.boundingSphere;
-	Vec3 sphere1 = object.pos;
-	Plane plane = p;
-	float dist = (VMath::distance(sphere1, plane));
+	float dist = 0.0f;
+	Vec3 pos = Vec3(object.pos.x, object.pos.y, object.pos.z);
+	dist = VMath::distance(object.boundingSphere, p);
+	
 	if (dist < object.boundingSphere.r) {
+		std::cout << dist - object.boundingSphere.r << std::endl;
 		return true;
 	}
 
@@ -20,12 +21,15 @@ bool Physics::PlaneSphereCollision(const PhysicsObject &object, const Plane &p) 
 }
 
 void Physics::PlaneSphereCollisionResponse(PhysicsObject &object, const Plane &p) {
+	Vec3 normal;
 	Vec3 plane = Vec3(p.x, p.y, p.z);
-	Vec3 normalPlane = VMath::normalize(plane);
-	Vec3 projection = Vec3(0.0f, 0.0f, 0.0f);
-	projection = (-1.0f * VMath::dot(object.vel, normalPlane) * normalPlane);
+	Vec3 Projection;
 
-	object.vel = object.vel + 2.0f * projection;
+	normal = VMath::normalize(plane);
+
+	Projection = (-1.0f * VMath::dot(object.vel, normal) * normal);
+
+	object.vel = object.vel + 2 * Projection;
 
 }
 

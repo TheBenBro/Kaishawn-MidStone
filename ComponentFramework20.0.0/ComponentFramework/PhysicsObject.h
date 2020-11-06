@@ -2,7 +2,7 @@
 #define PHYSICSOBJECT_H
 #include "Vector.h"
 #include "Sphere.h"
-#include "Cube.h"
+#include "Plane.h"
 
 using namespace MATH;
 
@@ -26,19 +26,18 @@ public:
 	inline void applyForce(const Vec3 force) { accel = force / mass;  }
 
 	inline void setRadius(const Sphere boundingSphere_) { boundingSphere = boundingSphere_; }
-	inline Sphere getRadius() { return boundingSphere; }
+	inline float getRadius() { return boundingSphere.r; }
 
 	inline void setDistance(const Plane distance_) { distance = distance_;}
 
 	inline void setMass(const float mass_) { mass = mass_; }
 
-	inline void setCube(const Cube width_, const Cube height_, const Cube depth_) { width = width_; height = height_; depth = depth_; }
 
 protected:
 	Vec3 pos, vel, accel;
 	float mass;
 	Sphere boundingSphere;
-	Cube width, height, depth;
+
 	Plane distance;
 };
 #endif

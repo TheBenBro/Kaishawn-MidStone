@@ -2,6 +2,7 @@
 #define SCENE0_H
 #include "Scene.h"
 #include "Vector.h"
+#include "Plane.h"
 using namespace MATH;
 
 /// Forward declarations 
@@ -17,6 +18,7 @@ private:
 	Camera *camera;
 	DemoObject *demoObject;
 	DemoObject* Sphere1;
+	Plane* plane;
 	Vec3 lightSource;
 	Mesh *meshPtr;
 	Shader *shaderPtr;
