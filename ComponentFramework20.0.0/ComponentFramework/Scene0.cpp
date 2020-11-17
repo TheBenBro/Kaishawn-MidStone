@@ -25,6 +25,7 @@ bool Scene0::OnCreate() {
 	if (ObjLoader::loadOBJ("meshes/Cube.obj") == false) {
 		return false;
 	}
+
 	meshPtr = new Mesh(GL_TRIANGLES, ObjLoader::vertices, ObjLoader::normals, ObjLoader::uvCoords);
 	shaderPtr = new Shader("phongVert.glsl", "phongFrag.glsl");
 	texturePtr = new Texture();
@@ -32,7 +33,6 @@ bool Scene0::OnCreate() {
 		Debug::FatalError("Couldn't create game object assets", __FILE__, __LINE__);
 		return false;
 	}
-
 
 	/*if (texturePtr->LoadImage("textures/mario_main.png") == false) {
 		Debug::FatalError("Couldn't load texture", __FILE__, __LINE__);
@@ -44,29 +44,32 @@ bool Scene0::OnCreate() {
 		Debug::FatalError("GameObject could not be created", __FILE__, __LINE__);
 		return false;
 	}
+
 	if (ObjLoader::loadOBJ("meshes/Cube.obj") == false) {
 		return false;
 	}
+
 	meshPtr = new Mesh(GL_TRIANGLES, ObjLoader::vertices, ObjLoader::normals, ObjLoader::uvCoords);
 	shaderPtr = new Shader("phongVert.glsl", "phongFrag.glsl");
 	texturePtr = new Texture();
 	Sphere1 = new DemoObject(meshPtr, shaderPtr, nullptr);
+
 	if (Sphere1 == nullptr) {
 		Debug::FatalError("GameObject could not be created", __FILE__, __LINE__);
 		return false;
 	}
 
 	plane = new Plane(0.0f);
-	plane->set(-1, -1, -1, 5);
+	//plane->set(0.0f, -10.0f, 0.0f, 0.1f);
 
-	demoObject->setPos(Vec3(0.0, 0.0, 0.0));
+	demoObject->setPos(Vec3(-5.0, 0.0, 0.0));
 	demoObject->setVel(Vec3(0.0, 0.0, 0.0));
 	demoObject->setModelMatrix(MMath::translate(demoObject->getPos()));
 	//demoObject->setDistance(Plane(10.0f));
 	demoObject->setMass(10.0f);
 
-	Sphere1->setPos(Vec3(0.0f, 5.0f, 0.0f));
-	Sphere1->setVel(Vec3(0.0f, -1.0f, 0.0f));
+	Sphere1->setPos(Vec3(5.0f, 0.0f, 0.0f));
+	Sphere1->setVel(Vec3(0.0f, .0f, 0.0f));
 	Sphere1->setModelMatrix(MMath::translate(Sphere1->getPos()));
 	Sphere1->setRadius(Sphere(0.5f));
 	Sphere1->setMass(10.0f);
@@ -75,7 +78,7 @@ bool Scene0::OnCreate() {
 }
 
 void Scene0::HandleEvents(const SDL_Event &sdlEvent) {
-
+	camera->HandleEvents(sdlEvent);
 }
 
 void Scene0::Update(const float deltaTime) {
@@ -85,13 +88,15 @@ void Scene0::Update(const float deltaTime) {
 	demoObject->setModelMatrix(MMath::rotate(rotation, Vec3(0.0f, 1.0f, 0.0f)));
 	***/
 	//std::cout << VMath::di)->getRadius();
+
+	camera->Update(deltaTime);
 	Physics::SimpleNewtonMotion(*demoObject, deltaTime);
 	Physics::SimpleNewtonMotion(*Sphere1, deltaTime);
 	
 	if (Physics::PlaneSphereCollision(*Sphere1, *plane)) {
-		//Physics::PlaneSphereCollisionResponse(*Sphere1, *plane);
-		Physics::SphereSphereCollisionResponse(*Sphere1, *demoObject);
+		Physics::PlaneSphereCollisionResponse(*Sphere1, *plane);
 	}
+	
 	demoObject->setModelMatrix(MMath::translate(demoObject->getPos()));
 	Sphere1->setModelMatrix(MMath::translate(Sphere1->getPos()));
 }

@@ -6,7 +6,6 @@ using namespace MATH;
 class Other_Plane
 {
 private:
-
 	const Vec3 normal;
 	const float distance;
 public:

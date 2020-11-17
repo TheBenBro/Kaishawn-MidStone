@@ -107,7 +107,7 @@ void SceneManager::GetEvents() {
 				BuildScene(SCENE6);
 				break;
 
-			default:
+			case SDL_SCANCODE_F7:
 				BuildScene(SCENE0);
 				break;
 			}

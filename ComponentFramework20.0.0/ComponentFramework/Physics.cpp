@@ -13,7 +13,7 @@ bool Physics::PlaneSphereCollision(const PhysicsObject &object, const Plane &p) 
 	dist = VMath::distance(object.boundingSphere, p);
 	
 	if (dist < object.boundingSphere.r) {
-		std::cout << dist - object.boundingSphere.r << std::endl;
+		//std::cout << dist - object.boundingSphere.r << std::endl;
 		return true;
 	}
 
@@ -21,16 +21,7 @@ bool Physics::PlaneSphereCollision(const PhysicsObject &object, const Plane &p) 
 }
 
 void Physics::PlaneSphereCollisionResponse(PhysicsObject &object, const Plane &p) {
-	Vec3 normal;
-	Vec3 plane = Vec3(p.x, p.y, p.z);
-	Vec3 Projection;
-
-	normal = VMath::normalize(plane);
-
-	Projection = (-1.0f * VMath::dot(object.vel, normal) * normal);
-
-	object.vel = object.vel + 2 * Projection;
-
+	VMath::reflect(object.boundingSphere, p);
 }
 
 bool Physics::SphereSphereCollision(const PhysicsObject &object1, const PhysicsObject &object2) {
@@ -40,6 +31,7 @@ bool Physics::SphereSphereCollision(const PhysicsObject &object1, const PhysicsO
 	if (dist < (object1.boundingSphere.r + object2.boundingSphere.r)) {
 		return true;
 	}
+
 	return false;
 }
 
