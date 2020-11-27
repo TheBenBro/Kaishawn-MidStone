@@ -9,19 +9,18 @@ void Physics::SimpleNewtonMotion(PhysicsObject &object, const float deltaTime) {
 
 bool Physics::PlaneSphereCollision(const PhysicsObject &object, const Plane &p) {
 	float dist = 0.0f;
-	Vec3 pos = Vec3(object.pos.x, object.pos.y, object.pos.z);
-	dist = VMath::distance(object.boundingSphere, p);
+	Plane plane = PMath::normalize(p);
+	dist = PMath::distance(object.pos, plane);
 	
 	if (dist < object.boundingSphere.r) {
 		//std::cout << dist - object.boundingSphere.r << std::endl;
 		return true;
 	}
-
 	return false;
 }
 
 void Physics::PlaneSphereCollisionResponse(PhysicsObject &object, const Plane &p) {
-	VMath::reflect(object.boundingSphere, p);
+	PMath::reflect(object.vel, p);
 }
 
 bool Physics::SphereSphereCollision(const PhysicsObject &object1, const PhysicsObject &object2) {

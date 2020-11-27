@@ -1,5 +1,6 @@
 #include <glew.h>
 #include <iostream>
+#include <SDL.h>
 #include "Debug.h"
 #include "Scene0.h"
 #include "Camera.h"
@@ -11,8 +12,8 @@
 #include "MMath.h"
 #include "Debug.h"
 #include "Physics.h"
-
-Scene0::Scene0(): camera(nullptr), demoObject(nullptr),meshPtr(nullptr),shaderPtr(nullptr),texturePtr(nullptr),Sphere1(nullptr), plane(nullptr) {
+#include "Input.h"
+Scene0::Scene0(): camera(nullptr), demoObject(nullptr),meshPtr(nullptr),shaderPtr(nullptr),texturePtr(nullptr),Sphere1(nullptr), plane(nullptr){
 	Debug::Info("Created Scene0: ", __FILE__, __LINE__);
 }
 
@@ -45,7 +46,7 @@ bool Scene0::OnCreate() {
 		return false;
 	}
 
-	if (ObjLoader::loadOBJ("meshes/Cube.obj") == false) {
+	if (ObjLoader::loadOBJ("meshes/Sphere.obj") == false) {
 		return false;
 	}
 
@@ -59,17 +60,16 @@ bool Scene0::OnCreate() {
 		return false;
 	}
 
-	plane = new Plane(0.0f);
-	//plane->set(0.0f, -10.0f, 0.0f, 0.1f);
-
+	plane = new Plane(Vec3(10.0f, -3.0f, -5.0f), Vec3(-10.0f, -3.0f, 10.0f), Vec3(3.0f, -3.0f, 8.0f));
+	
 	demoObject->setPos(Vec3(-5.0, 0.0, 0.0));
 	demoObject->setVel(Vec3(0.0, 0.0, 0.0));
 	demoObject->setModelMatrix(MMath::translate(demoObject->getPos()));
 	//demoObject->setDistance(Plane(10.0f));
 	demoObject->setMass(10.0f);
 
-	Sphere1->setPos(Vec3(5.0f, 0.0f, 0.0f));
-	Sphere1->setVel(Vec3(0.0f, .0f, 0.0f));
+	Sphere1->setPos(Vec3(0.0f, 5.0f,0.0f));
+	Sphere1->setVel(Vec3(0.0f, -1.0f, 0.0f));
 	Sphere1->setModelMatrix(MMath::translate(Sphere1->getPos()));
 	Sphere1->setRadius(Sphere(0.5f));
 	Sphere1->setMass(10.0f);
@@ -78,7 +78,7 @@ bool Scene0::OnCreate() {
 }
 
 void Scene0::HandleEvents(const SDL_Event &sdlEvent) {
-	camera->HandleEvents(sdlEvent);
+	Input::HandleEvents(sdlEvent, move.x);
 }
 
 void Scene0::Update(const float deltaTime) {
@@ -88,12 +88,37 @@ void Scene0::Update(const float deltaTime) {
 	demoObject->setModelMatrix(MMath::rotate(rotation, Vec3(0.0f, 1.0f, 0.0f)));
 	***/
 	//std::cout << VMath::di)->getRadius();
+	/*if (SDL_PollEvent(&event)) {
+		switch (event.type) {
+		
+		case SDL_KEYDOWN:
+			
+			case SDLK_LEFT:
+				move.x -= 1;
+				break;
+			case SDLK_RIGHT:
+				move.x += 1;
+				break;
+			case SDLK_UP:
+				//alien_y -= 1;
+				break;
+			case SDLK_DOWN:
+				//alien_y += 1;
+				break;
+			default:
+				break;
+			}
+		}
+	}*/
+
 
 	camera->Update(deltaTime);
 	Physics::SimpleNewtonMotion(*demoObject, deltaTime);
 	Physics::SimpleNewtonMotion(*Sphere1, deltaTime);
 	
 	if (Physics::PlaneSphereCollision(*Sphere1, *plane)) {
+		std::cout << "true" << std::endl;
+		Sphere1->setVel(Vec3(0.0f, 1.0f, 0.0f));
 		Physics::PlaneSphereCollisionResponse(*Sphere1, *plane);
 	}
 	

@@ -12,9 +12,9 @@ class DemoObject;
 class Mesh;
 class Shader;
 class Texture;
-
 class Scene0 : public Scene {
 private:
+	SDL_Event event;
 	Camera *camera;
 	DemoObject *demoObject;
 	DemoObject* Sphere1;
@@ -23,6 +23,7 @@ private:
 	Mesh *meshPtr;
 	Shader *shaderPtr;
 	Texture *texturePtr;
+	Vec3 move = Vec3(0.0f, 0.0f, 0.0f);
 public:
 	explicit Scene0();
 	virtual ~Scene0();

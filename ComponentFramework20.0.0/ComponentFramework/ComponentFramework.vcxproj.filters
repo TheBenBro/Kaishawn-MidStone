@@ -105,6 +105,9 @@
     <ClCompile Include="Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PMath.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Debug.h">
@@ -193,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PMath.h">
+      <Filter>Header Files\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

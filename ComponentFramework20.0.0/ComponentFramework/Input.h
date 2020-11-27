@@ -11,8 +11,8 @@ private:
 public:
 	Input();
 	~Input();
-	void moveRight(float x);
-	void HandleEvents(const SDL_Event& sdlEvent, float x_);
+	static void moveRight(float x);
+	static void HandleEvents(const SDL_Event& sdlEvent, float x_);
 };
 #endif
 

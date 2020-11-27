@@ -1,8 +1,11 @@
 #ifndef PLANE_H
 #define PLANE_H
+#include <iostream>
+#include "VMath.h"
 
+///http://www.songho.ca/math/plane/plane.html
+///http://mathworld.wolfram.com/HessianNormalForm.html
 namespace  MATH {
-	///  float x,y,z; came from vector as the normal to the surface + distance to the surface (d) 
 	struct Plane : public Vec3 {
 		float d;
 
@@ -11,42 +14,55 @@ namespace  MATH {
 			x = x_; y = y_; z = z_, d = d_;
 		}
 
-		/// Here's a set of constructors
-		explicit Plane(float s = 0.0f) {
-			set(s, s, s, s);
+
+		/// Here's a set of constructors:
+
+		/// If the plane is defined by a normal (that is normalized), 
+		/// the equation of a Plane is Ax + By + Cz - D = 0; where 
+		/// A,B,C are the values of the normal n <A,B,C> and D is the 
+		/// distance from the origin to the plane
+		Plane(Vec3 n, float d) {
+			set(n.x, n.y, n.z, -d);
+
+#ifdef _DEBUG  /// If in debug mode let's worry the normal being normalized
+			float mag = VMath::mag(n);
+			if (std::fabs(mag) - 1.0f > VERY_SMALL) {
+				std::string errorMsg = __FILE__ + __LINE__;
+				throw errorMsg.append(": The normal was not normalized");
+
+			}
+#endif // DEBUG
 		}
 
-		Plane(float x, float y, float z, float d) {
-			set(x, y, z, d);
+		/// If the plane is defined by three points v0, v1, v2 
+		/// then the equation of a Plane is Ax + By + Cz + D = 0.
+		Plane(const Vec3& v0, const Vec3& v1, const Vec3& v2) {
+			Vec3 a = v1 - v0;
+			Vec3 b = v2 - v0;
+			Vec3 n = VMath::normalize(VMath::cross(a, b));
+			set(n.x, n.y, n.z, VMath::dot(n, v0));
 		}
 
+		/// A copy constructor
 		Plane(const Plane& p) {
 			set(p.x, p.y, p.z, p.d);
 		}
 
-		/// This creates a normalized equation of a plane.
-		Plane(const Vec3& v0, const Vec3& v1, const Vec3& v2) {
-			Vec3 a = v1 - v0;
-			Vec3 b = v2 - v0;
-			Vec3 n = Vec3(a.y * b.z - a.z * b.y, /// This is the cross product
-				a.z * b.x - a.x * b.z,
-				a.x * b.y - a.y * b.x);
-			float magnitude = float(sqrt(n.x * n.x + n.y * n.y + n.z * n.z)); /// normalize
-			Plane(x / magnitude, y / magnitude, z / magnitude, a.x * b.x + a.y * b.y + a.z * b.z);
+		/// An assignment operator   
+		inline Plane& operator = (const Plane& p) {
+			set(p.x, p.y, p.z, p.d);
+			return *this;
 		}
 
-
-		/// Convert this plane into a normalized plane
-		void normalize() {
-			float a = sqrt(x*x + y * y + z * z);
-			x /= a;
-			y /= a;
-			z /= a;
-			d /= a;
+		/// These just set numbers - be careful.  
+		Plane(float x, float y, float z, float d) {
+			set(x, y, z, d);
+		}
+		explicit Plane(float s = 0.0f) {
+			set(s, s, s, s);
 		}
 
-
-		void print() {
+		inline void print() {
 			printf("%f %f %f %f\n", x, y, z, d);
 		}
 
