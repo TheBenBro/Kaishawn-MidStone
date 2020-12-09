@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "Vector.h"
 #include "Plane.h"
+#include "Input.h"
 using namespace MATH;
 
 /// Forward declarations 
@@ -17,6 +18,7 @@ private:
 	SDL_Event event;
 	Camera *camera;
 	DemoObject *demoObject;
+	Input* input;
 	DemoObject* Sphere1;
 	Plane* plane;
 	Vec3 lightSource;
@@ -24,10 +26,11 @@ private:
 	Shader *shaderPtr;
 	Texture *texturePtr;
 	Vec3 move = Vec3(0.0f, 0.0f, 0.0f);
+	bool notCollided;
 public:
 	explicit Scene0();
 	virtual ~Scene0();
-
+	void Move(Vec3 vec);
 	virtual bool OnCreate() override;
 	virtual void OnDestroy() override;
 	virtual void Update(const float deltaTime) override;

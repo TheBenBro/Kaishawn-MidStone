@@ -1,24 +1,37 @@
 #include "Input.h"
 #include <SDL.h>
-
+Input* Input::sInstance = NULL;
 Input::Input()
 {
-	keyDown = false;
-	x = 0.0f;
+	keyboardState = NULL;
 }
 
 Input::~Input()
 {
 }
 
-void Input::moveRight(float x)
+Input* Input::Instance()
 {
-	x += 1;
+	if (sInstance == NULL)
+		sInstance = new Input();
+
+	return sInstance;
 }
 
-void Input::HandleEvents(const SDL_Event& sdlEvent, float x_)
+void Input::Release()
 {
-	if (sdlEvent.type == SDLK_RIGHT) {
-		moveRight(x_);
-	}
+	delete sInstance;
+	sInstance = NULL;
 }
+
+/*bool Input::keyDown(SDL_Scancode scanCode)
+{
+	return keyboardState[scanCode];
+}*/
+
+void Input::Update()
+{
+	keyboardState = SDL_GetKeyboardState(NULL);
+}
+
+

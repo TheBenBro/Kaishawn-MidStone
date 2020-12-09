@@ -19,6 +19,6 @@ float PMath::distance(const Vec3& v, const Plane& p) {
 
 /// Reflect an  incident vector off the normal of a plane 
 Vec3 PMath::reflect(const Vec3& v, const Plane& p) {
-	float lamda = 2.0f * VMath::dot(p, v);
+	float lamda = 2.0f * VMath::dot(p, -v);
 	return v + lamda * p;
 }

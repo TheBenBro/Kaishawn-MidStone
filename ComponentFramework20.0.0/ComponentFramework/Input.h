@@ -1,18 +1,25 @@
 #ifndef INPUT_H
 #define INPUT_H
+#include <SDL.h>
 union SDL_Event;
 
 class Input
 {
 private:
-	bool keyDown;
-	float x;
+	static Input* sInstance;
 
-public:
+	const Uint8* keyboardState;
 	Input();
 	~Input();
-	static void moveRight(float x);
-	static void HandleEvents(const SDL_Event& sdlEvent, float x_);
+public:
+
+	static Input* Instance();
+	static void Release();
+
+	bool keyDown(SDL_Scancode scanCode);
+	void Update();
+
+
 };
 #endif
 

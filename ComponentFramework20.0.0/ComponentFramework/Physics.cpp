@@ -2,6 +2,7 @@
 #include <iostream>
 
 
+
 void Physics::SimpleNewtonMotion(PhysicsObject &object, const float deltaTime) {
 	object.pos += object.vel * deltaTime + 0.5f * object.accel * deltaTime * deltaTime;
 	object.vel += object.accel * deltaTime;
@@ -9,18 +10,20 @@ void Physics::SimpleNewtonMotion(PhysicsObject &object, const float deltaTime) {
 
 bool Physics::PlaneSphereCollision(const PhysicsObject &object, const Plane &p) {
 	float dist = 0.0f;
-	Plane plane = PMath::normalize(p);
-	dist = PMath::distance(object.pos, plane);
-	
-	if (dist < object.boundingSphere.r) {
-		//std::cout << dist - object.boundingSphere.r << std::endl;
+	dist = PMath::distance(object.pos, p);
+	if (dist <= object.boundingSphere.r) {
 		return true;
 	}
-	return false;
+	else if(dist > object.boundingSphere.r) {
+		return false;
+	}
+	
 }
 
 void Physics::PlaneSphereCollisionResponse(PhysicsObject &object, const Plane &p) {
-	PMath::reflect(object.vel, p);
+	std::cout <<"bounced"<< std::endl;
+	
+	object.vel = PMath::reflect(object.vel, p);
 }
 
 bool Physics::SphereSphereCollision(const PhysicsObject &object1, const PhysicsObject &object2) {
@@ -30,7 +33,6 @@ bool Physics::SphereSphereCollision(const PhysicsObject &object1, const PhysicsO
 	if (dist < (object1.boundingSphere.r + object2.boundingSphere.r)) {
 		return true;
 	}
-
 	return false;
 }
 
