@@ -76,17 +76,17 @@ bool Scene0::OnCreate() {
 	normal = VMath::normalize(normal);
 	plane = new Plane(normal, 1.0f);
 	
-	demoObject->setPos(Vec3(-5.0, 3.0, 0.0));
-	demoObject->setVel(Vec3(0.0, 0.0, 0.0));
-	demoObject->setModelMatrix(MMath::translate(demoObject->getPos()));
+	demoObject->setPos(Vec3(-5.0, 5.0, 0.0));
+	//demoObject->setVel(Vec3(0.0, 0.0, 0.0));
+	//demoObject->setModelMatrix(MMath::translate(demoObject->getPos()));
 	demoObject->setRadius(Sphere(1.0f));
 	demoObject->setMass(10.0f);
 
 	Sphere1->setPos(Vec3(5.0f,3.0f,0.0f));
-	Sphere1->setVel(Vec3(0.0f, -1.0f, 0.0f));
-	Sphere1->setModelMatrix(MMath::translate(Sphere1->getPos()));
+	Sphere1->setVel(Vec3(-2.0f, -1.0f, 0.0f));
+	//Sphere1->setModelMatrix(MMath::translate(Sphere1->getPos()));
 	Sphere1->setRadius(Sphere(1.0f));
-	Sphere1->setMass(10.0f);
+	Sphere1->setMass(5.0f);
 	
 	return true;
 }
@@ -109,6 +109,7 @@ void Scene0::Update(const float deltaTime) {
 		Move(Vec3(0.0f, -1.0f, 0.0f));
 	}*/
 
+	//camera->Update(deltaTime);
 	Physics::SimpleNewtonMotion(*demoObject, deltaTime);
 	Physics::SimpleNewtonMotion(*Sphere1, deltaTime);
 

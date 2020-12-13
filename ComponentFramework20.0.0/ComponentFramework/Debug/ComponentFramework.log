@@ -1,3 +1,39 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (ComponentFramework.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  AABB.cpp
+  Camera.cpp
+  Debug.cpp
+  GameObject.h
+  DemoObject.cpp
+  Input.cpp
+C:\GameDev\SDL\include\SDL_stdinc.h(448,53): warning C4468: 'fallthrough': attribute must be followed by a case label or a default label
+  Other_Plane.cpp
+  Physics.cpp
+  PhysicsObject.cpp
+  PMath.cpp
+  Scene2.cpp
+  Scene3.cpp
+  Scene4.cpp
+  Scene5.cpp
+  Scene6.cpp
+  SceneManager.cpp
+C:\GameDev\SDL\include\SDL_stdinc.h(448,53): warning C4468: 'fallthrough': attribute must be followed by a case label or a default label
+  Main.cpp
+  Mesh.cpp
+  MMath.cpp
+  ObjLoader.cpp
+  Generating Code...
+C:\Users\kaysa\Documents\GitHub\ComponentFramework20.0.0\Kaishawn-MidStone\ComponentFramework20.0.0\ComponentFramework\Physics.cpp(21): warning C4715: 'Physics::PlaneSphereCollision': not all control paths return a value
+  Compiling...
   Scene0.cpp
+C:\GameDev\SDL\include\SDL_stdinc.h(448,53): warning C4468: 'fallthrough': attribute must be followed by a case label or a default label
+  Scene1.cpp
+  Shader.cpp
+  Texture.cpp
+C:\GameDev\SDL\include\SDL_stdinc.h(448,53): warning C4468: 'fallthrough': attribute must be followed by a case label or a default label
+  Timer.cpp
+C:\GameDev\SDL\include\SDL_stdinc.h(448,53): warning C4468: 'fallthrough': attribute must be followed by a case label or a default label
+  VMath.cpp
+  Window.cpp
+C:\GameDev\SDL\include\SDL_stdinc.h(448,53): warning C4468: 'fallthrough': attribute must be followed by a case label or a default label
+  Generating Code...
   ComponentFramework.vcxproj -> C:\Users\kaysa\Documents\GitHub\ComponentFramework20.0.0\Kaishawn-MidStone\ComponentFramework20.0.0\Debug\MidStoneProject.exe

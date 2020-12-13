@@ -14,7 +14,6 @@ private:
 	Matrix4 view;
 	Matrix4 rotate;
 	Matrix4 translate;
-	Vec3 move;
 public:
 
 	bool OnCreate() override;
